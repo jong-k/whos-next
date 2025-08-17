@@ -1,4 +1,5 @@
-import PostList from "@/components/PostList";
+import PostListWithSuspense from "@/components/PostListWithSuspense";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Home() {
   return (
@@ -7,7 +8,8 @@ export default function Home() {
         <h1 className="mb-8 text-center text-3xl font-bold">
           Who&apos;s Next - Like Demo
         </h1>
-        <PostList />
+        <LoadingSpinner />
+        <PostListWithSuspense />
       </div>
     </div>
   );
