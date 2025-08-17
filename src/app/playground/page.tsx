@@ -1,5 +1,5 @@
 "use client";
-import { useOptimistic, useState, startTransition } from "react";
+import { useOptimistic, useState, startTransition, useEffect } from "react";
 
 export default function PlayGroundPage() {
   const [count, setCount] = useState(0);
@@ -9,6 +9,10 @@ export default function PlayGroundPage() {
       return state + increment;
     }
   );
+
+  useEffect(() => {
+    console.log("count 변경");
+  }, [count]);
 
   const handleClick = () => {
     startTransition(async () => {
@@ -32,7 +36,8 @@ export default function PlayGroundPage() {
     <div>
       <h2>Hello from Playground</h2>
       <div className="flex gap-2">
-        <span>clicked: {optimisticCount}</span>
+        <span>count: {count}</span>
+        <span>optimisticCount: {optimisticCount}</span>
         <button onClick={handleClick}>click me</button>
       </div>
     </div>
