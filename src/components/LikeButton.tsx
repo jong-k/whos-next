@@ -3,13 +3,13 @@
 import { useOptimistic, useTransition } from "react";
 import LikeIcon from "./LikeIcon";
 import type { Post } from "@/types/post";
+import { togglePostLike } from "@/lib/api";
 
 interface LikeButtonProps {
   post: Post;
-  onToggleLike: (postId: number) => Promise<void>;
 }
 
-export default function LikeButton({ post, onToggleLike }: LikeButtonProps) {
+export default function LikeButton({ post }: LikeButtonProps) {
   const [isPending, startTransition] = useTransition();
   const [optimisticPost, addOptimisticLike] = useOptimistic(
     post,
@@ -24,7 +24,7 @@ export default function LikeButton({ post, onToggleLike }: LikeButtonProps) {
     startTransition(async () => {
       addOptimisticLike(!optimisticPost.liked);
       try {
-        await onToggleLike(post.id);
+        await togglePostLike(post.id, optimisticPost.liked);
       } catch (error) {
         addOptimisticLike(optimisticPost.liked);
         console.error("Failed to toggle like:", error);

@@ -20,7 +20,8 @@ export async function togglePostLike(
 }
 
 export async function getAllPosts(): Promise<Post[]> {
-  const response = await fetch("/api/posts");
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const response = await fetch(`${baseUrl}/api/posts`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch posts");
