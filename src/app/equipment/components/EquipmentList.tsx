@@ -7,7 +7,11 @@ import { EquipmentItem } from "@/types/equipment";
 
 export default function EquipmentList() {
   const queryClient = useQueryClient();
-  const { data, isPending, error } = useQuery({
+  const {
+    data: equipmentListData,
+    isPending,
+    error,
+  } = useQuery({
     queryKey: [QUERY_KEY.equipmentList],
     queryFn: equipmentApi.getAllEquipment,
   });
@@ -15,8 +19,18 @@ export default function EquipmentList() {
   const { mutate: toggleDisabled } = useMutation({
     mutationFn: (equipment: EquipmentItem) =>
       equipmentApi.toggleEquipmentDisabled(equipment.id, !equipment.disabled),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.equipmentList] });
+    onSuccess: newEquipmentItem => {
+      // queryClient.invalidateQueries({ queryKey: [QUERY_KEY.equipmentList] });
+      queryClient.setQueryData(
+        [QUERY_KEY.equipmentList],
+        (oldEquipmentList: EquipmentItem[]) => {
+          return oldEquipmentList.map(equipmentItem => {
+            return equipmentItem.id === newEquipmentItem.id
+              ? newEquipmentItem
+              : equipmentItem;
+          });
+        }
+      );
     },
   });
 
@@ -33,7 +47,7 @@ export default function EquipmentList() {
         </tr>
       </thead>
       <tbody>
-        {data!.map(equipment => (
+        {equipmentListData!.map(equipment => (
           <tr
             key={equipment.id}
             className="border-b last:border-none hover:bg-gray-50"

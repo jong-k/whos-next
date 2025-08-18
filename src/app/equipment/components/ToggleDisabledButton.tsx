@@ -10,6 +10,7 @@ export default function ToggleDisabledButton({
   handleClick: () => void;
 }) {
   const isDisabled = equipmentItem.disabled;
+
   return (
     <Button
       className={cn([

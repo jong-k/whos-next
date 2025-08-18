@@ -6,7 +6,6 @@ import {
 import { equipmentApi } from "@/lib/api/equipment";
 import EquipmentList from "./components/EquipmentList";
 import { QUERY_KEY } from "@/constants/queryKeys";
-
 export default async function EquipmentPage() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
@@ -17,7 +16,7 @@ export default async function EquipmentPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div>
-        <h2>Equipment Page</h2>
+        <h2 className="mb-4 text-2xl">장비 관리 페이지</h2>
         <EquipmentList />
       </div>
     </HydrationBoundary>
