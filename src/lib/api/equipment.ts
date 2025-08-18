@@ -1,8 +1,11 @@
 import { BASE_URL } from "@/constants/app";
+import { EquipmentItem } from "@/types/equipment";
 
 export const equipmentApi = {
-  async getAllEquipment() {
-    const response = await fetch(`${BASE_URL}/api/equipment`);
+  async getAllEquipment(): Promise<Array<EquipmentItem>> {
+    const response = await fetch(`${BASE_URL}/api/equipment`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error("failed to fetch all equipment");
     return response.json();
   },
