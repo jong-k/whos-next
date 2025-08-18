@@ -2,8 +2,8 @@
 
 import { useOptimistic, useTransition } from "react";
 import LikeIcon from "./LikeIcon";
-import type { Post } from "@/types/post";
-import { togglePostLike } from "@/lib/api";
+import type { Post } from "@/types/equipment";
+import { togglePostLikeAction } from "@/lib/actions";
 
 interface LikeButtonProps {
   post: Post;
@@ -21,13 +21,14 @@ export default function LikeButton({ post }: LikeButtonProps) {
   );
 
   const handleClick = () => {
+    const originalLiked = optimisticPost.liked;
     startTransition(async () => {
-      addOptimisticLike(!optimisticPost.liked);
-      try {
-        await togglePostLike(post.id, optimisticPost.liked);
-      } catch (error) {
-        addOptimisticLike(optimisticPost.liked);
-        console.error("Failed to toggle like:", error);
+      addOptimisticLike(!originalLiked);
+      const result = await togglePostLikeAction(post.id, originalLiked);
+      if (!result.success) {
+        // 에러 발생 시 원래 상태로 롤백
+        addOptimisticLike(originalLiked);
+        console.error("Failed to toggle like:", result.error);
       }
     });
   };

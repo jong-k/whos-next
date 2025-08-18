@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <ul>
       <li>
-        <Link href="/posts">낙관적 업데이트</Link>
+        <Link href="/equipment">낙관적 업데이트</Link>
       </li>
     </ul>
   );
