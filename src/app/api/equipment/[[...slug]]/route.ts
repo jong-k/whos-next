@@ -4,7 +4,7 @@ const equipmentList = [...DUMMY_EQUIPMENT_LIST];
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string[] } }
+  { params }: { params: Promise<{ slug: string[] }> }
 ) {
   const { slug } = await params;
 
@@ -33,7 +33,7 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { slug: string[] } }
+  { params }: { params: Promise<{ slug: string[] }> }
 ) {
   const { slug } = await params;
 
