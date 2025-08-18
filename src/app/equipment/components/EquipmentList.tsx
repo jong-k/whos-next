@@ -16,7 +16,7 @@ export default function EquipmentList() {
     mutationFn: (equipment: EquipmentItem) =>
       equipmentApi.toggleEquipmentDisabled(equipment.id, !equipment.disabled),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.equipmentList] });
     },
   });
 
