@@ -2,7 +2,7 @@
 import { useOptimistic, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 
-export default function PlayGroundPage() {
+export default function OptimisticCounterPage() {
   const [count, setCount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startUiTransition] = useTransition();
@@ -32,8 +32,7 @@ export default function PlayGroundPage() {
 
   return (
     <div>
-      <h2 className="mb-4 text-2xl">Hello from Playground</h2>
-      <h3 className="text-xl">낙관적 카운터</h3>
+      <h2 className="mb-4 text-2xl">낙관적 카운터 UI</h2>
       <div className="flex items-center gap-4">
         <span>count: {count}</span>
         <span>optimisticCount: {optimisticCount}</span>
