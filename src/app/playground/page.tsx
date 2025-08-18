@@ -1,5 +1,6 @@
 "use client";
-import { useOptimistic, useState, startTransition, useEffect } from "react";
+import { useOptimistic, useState, startTransition } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function PlayGroundPage() {
   const [count, setCount] = useState(0);
@@ -10,15 +11,11 @@ export default function PlayGroundPage() {
     }
   );
 
-  useEffect(() => {
-    console.log("count 변경");
-  }, [count]);
-
   const handleClick = () => {
     startTransition(async () => {
       addOptimisticCount(1);
       try {
-        await new Promise<void>(res => setTimeout(() => res(), 2000));
+        await new Promise<void>(res => setTimeout(() => res(), 1500));
         const isSuccess = Math.round(Math.random()) === 0;
         if (!isSuccess) {
           throw new Error("increment failed!");
@@ -34,11 +31,11 @@ export default function PlayGroundPage() {
 
   return (
     <div>
-      <h2>Hello from Playground</h2>
-      <div className="flex gap-2">
+      <h2 className="text-2xl">Hello from Playground</h2>
+      <div className="space-x-2">
         <span>count: {count}</span>
         <span>optimisticCount: {optimisticCount}</span>
-        <button onClick={handleClick}>click me</button>
+        <Button onClick={handleClick}>click me</Button>
       </div>
     </div>
   );
