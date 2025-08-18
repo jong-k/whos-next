@@ -1,6 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { equipmentApi } from "@/lib/api/equipment";
+import ActivateToggleButton from "./ActivateToggleButton";
 
 export default function EquipmentList() {
   const { data, isPending, error } = useQuery({
@@ -21,15 +22,15 @@ export default function EquipmentList() {
         </tr>
       </thead>
       <tbody>
-        {data!.map((equipment, index) => (
+        {data!.map(equipment => (
           <tr
             key={equipment.id}
-            className={`hover:bg-gray-50 ${index !== data!.length - 1 ? "border-b" : ""}`}
+            className="border-b last:border-none hover:bg-gray-50"
           >
             <td className="p-4">{equipment.serial}</td>
             <td className="p-4">{equipment.model}</td>
             <td className="p-4">
-              {equipment.disabled ? "비활성화" : "활성화"}
+              <ActivateToggleButton equipmentItem={equipment} />
             </td>
           </tr>
         ))}
