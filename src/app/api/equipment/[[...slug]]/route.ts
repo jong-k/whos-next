@@ -59,8 +59,9 @@ export async function PATCH(
     const body = await request.json();
     const isDisabled = body.disabled;
 
-    if (isDisabled !== equipmentItem.disabled)
+    if (isDisabled !== equipmentItem.disabled) {
       equipmentItem.disabled = isDisabled;
+    }
 
     return Response.json(equipmentItem);
   }

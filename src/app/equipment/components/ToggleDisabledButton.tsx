@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { EquipmentItem } from "@/types/equipment";
 
-export default function ActivateToggleButton({
+export default function ToggleDisabledButton({
   equipmentItem,
+  handleClick,
 }: {
   equipmentItem: EquipmentItem;
+  handleClick: () => void;
 }) {
   const isDisabled = equipmentItem.disabled;
   return (
@@ -19,6 +21,7 @@ export default function ActivateToggleButton({
         isDisabled ? "hover:bg-green-300" : "hover:bg-red-300",
       ])}
       variant="outline"
+      onClick={handleClick}
     >
       <span className="block group-hover:hidden">
         {isDisabled ? "비활성화" : "활성화"}

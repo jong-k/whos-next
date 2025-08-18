@@ -1,12 +1,23 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { equipmentApi } from "@/lib/api/equipment";
-import ActivateToggleButton from "./ActivateToggleButton";
+import ToggleDisabledButton from "./ToggleDisabledButton";
+import { QUERY_KEY } from "@/constants/queryKeys";
+import { EquipmentItem } from "@/types/equipment";
 
 export default function EquipmentList() {
+  const queryClient = useQueryClient();
   const { data, isPending, error } = useQuery({
-    queryKey: ["equipment-list"],
+    queryKey: [QUERY_KEY.equipmentList],
     queryFn: equipmentApi.getAllEquipment,
+  });
+
+  const { mutate: toggleDisabled } = useMutation({
+    mutationFn: (equipment: EquipmentItem) =>
+      equipmentApi.toggleEquipmentDisabled(equipment.id, !equipment.disabled),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
+    },
   });
 
   if (isPending) return <div>Loading...</div>;
@@ -30,7 +41,10 @@ export default function EquipmentList() {
             <td className="p-4">{equipment.serial}</td>
             <td className="p-4">{equipment.model}</td>
             <td className="p-4">
-              <ActivateToggleButton equipmentItem={equipment} />
+              <ToggleDisabledButton
+                equipmentItem={equipment}
+                handleClick={() => toggleDisabled(equipment)}
+              />
             </td>
           </tr>
         ))}
