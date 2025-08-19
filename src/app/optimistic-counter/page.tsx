@@ -1,4 +1,5 @@
 "use client";
+
 import { useOptimistic, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -6,12 +7,9 @@ export default function OptimisticCounterPage() {
   const [count, setCount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startUiTransition] = useTransition();
-  const [optimisticCount, addOptimisticCount] = useOptimistic<number, number>(
-    count,
-    (state, increment) => {
-      return state + increment;
-    }
-  );
+  const [optimisticCount, addOptimisticCount] = useOptimistic<number, number>(count, (state, increment) => {
+    return state + increment;
+  });
 
   const handleClick = () => {
     startUiTransition(async () => {

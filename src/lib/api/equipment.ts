@@ -15,10 +15,7 @@ export const equipmentApi = {
     return response.json();
   },
 
-  async toggleEquipmentDisabled(
-    equipmentId: number,
-    disabled: boolean
-  ): Promise<EquipmentItem> {
+  async toggleEquipmentDisabled(equipmentId: number, disabled: boolean): Promise<EquipmentItem> {
     const response = await fetch(`/api/equipment/${equipmentId}`, {
       method: "PATCH",
       headers: {

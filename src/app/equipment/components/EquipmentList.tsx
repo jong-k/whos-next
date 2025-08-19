@@ -1,9 +1,10 @@
 "use client";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { equipmentApi } from "@/lib/api/equipment";
-import ToggleDisabledButton from "./ToggleDisabledButton";
+
 import { QUERY_KEY } from "@/constants/queryKeys";
+import { equipmentApi } from "@/lib/api/equipment";
 import { EquipmentItem } from "@/types/equipment";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import ToggleDisabledButton from "./ToggleDisabledButton";
 
 export default function EquipmentList() {
   const queryClient = useQueryClient();
@@ -17,20 +18,14 @@ export default function EquipmentList() {
   });
 
   const { mutate: toggleDisabled } = useMutation({
-    mutationFn: (equipment: EquipmentItem) =>
-      equipmentApi.toggleEquipmentDisabled(equipment.id, !equipment.disabled),
+    mutationFn: (equipment: EquipmentItem) => equipmentApi.toggleEquipmentDisabled(equipment.id, !equipment.disabled),
     onSuccess: newEquipmentItem => {
       // queryClient.invalidateQueries({ queryKey: [QUERY_KEY.equipmentList] });
-      queryClient.setQueryData(
-        [QUERY_KEY.equipmentList],
-        (oldEquipmentList: EquipmentItem[]) => {
-          return oldEquipmentList.map(equipmentItem => {
-            return equipmentItem.id === newEquipmentItem.id
-              ? newEquipmentItem
-              : equipmentItem;
-          });
-        }
-      );
+      queryClient.setQueryData([QUERY_KEY.equipmentList], (oldEquipmentList: EquipmentItem[]) => {
+        return oldEquipmentList.map(equipmentItem => {
+          return equipmentItem.id === newEquipmentItem.id ? newEquipmentItem : equipmentItem;
+        });
+      });
     },
   });
 
@@ -48,17 +43,11 @@ export default function EquipmentList() {
       </thead>
       <tbody>
         {equipmentListData!.map(equipment => (
-          <tr
-            key={equipment.id}
-            className="border-b last:border-none hover:bg-gray-50"
-          >
+          <tr key={equipment.id} className="border-b last:border-none hover:bg-gray-50">
             <td className="p-4">{equipment.serial}</td>
             <td className="p-4">{equipment.model}</td>
             <td className="p-4">
-              <ToggleDisabledButton
-                equipmentItem={equipment}
-                handleClick={() => toggleDisabled(equipment)}
-              />
+              <ToggleDisabledButton equipmentItem={equipment} handleClick={() => toggleDisabled(equipment)} />
             </td>
           </tr>
         ))}

@@ -24,12 +24,8 @@ export default function ToggleDisabledButton({
       variant="outline"
       onClick={handleClick}
     >
-      <span className="block group-hover:hidden">
-        {isDisabled ? "비활성화" : "활성화"}
-      </span>
-      <span className="hidden group-hover:block">
-        {isDisabled ? "활성화" : "비활성화"}
-      </span>
+      <span className="block group-hover:hidden">{isDisabled ? "비활성화" : "활성화"}</span>
+      <span className="hidden group-hover:block">{isDisabled ? "활성화" : "비활성화"}</span>
     </Button>
   );
 }

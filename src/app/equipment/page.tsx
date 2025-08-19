@@ -1,11 +1,7 @@
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
-import { equipmentApi } from "@/lib/api/equipment";
-import EquipmentList from "./components/EquipmentList";
 import { QUERY_KEY } from "@/constants/queryKeys";
+import { equipmentApi } from "@/lib/api/equipment";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import EquipmentList from "./components/EquipmentList";
 
 export default async function EquipmentPage() {
   const queryClient = new QueryClient();
