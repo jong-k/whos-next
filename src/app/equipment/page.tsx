@@ -6,6 +6,7 @@ import {
 import { equipmentApi } from "@/lib/api/equipment";
 import EquipmentList from "./components/EquipmentList";
 import { QUERY_KEY } from "@/constants/queryKeys";
+
 export default async function EquipmentPage() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
