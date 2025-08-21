@@ -36,16 +36,18 @@ export default function EquipmentList() {
     <table className="w-full">
       <thead>
         <tr className="border-b">
-          <th className="p-4 text-left">시리얼번호</th>
+          <th className="p-4 text-left">번호</th>
           <th className="p-4 text-left">모델</th>
+          <th className="p-4 text-left">시리얼번호</th>
           <th className="p-4 text-left">상태</th>
         </tr>
       </thead>
       <tbody>
         {equipmentListData!.map(equipment => (
           <tr key={equipment.id} className="border-b last:border-none hover:bg-gray-50">
-            <td className="p-4">{equipment.serial}</td>
+            <td className="p-4">{equipment.id}</td>
             <td className="p-4">{equipment.model}</td>
+            <td className="p-4">{equipment.serial}</td>
             <td className="p-4">
               <ToggleDisabledButton equipmentItem={equipment} handleClick={() => toggleDisabled(equipment)} />
             </td>
